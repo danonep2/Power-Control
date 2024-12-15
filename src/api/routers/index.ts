@@ -7,10 +7,14 @@ import SetCommand from '../controllers/device/set-command';
 import GetDeviceConsumption from '../controllers/device/get-device-consumption';
 import GetDevicesConsumption from '../controllers/device/get-devices-consumption';
 import UpdateDeviceTag from '../controllers/device/update-device-tag';
+import UserInfo from '../controllers/user/info';
 
 const router = express.Router();
 
 //user
+router.get('/user/info', (req: Request, res: Response, next: NextFunction) => {
+    UserInfo({ req, res, next });
+});
 
 //device
 router.get('/devices', (req: Request, res: Response, next: NextFunction) => {
