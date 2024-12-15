@@ -5,6 +5,7 @@ import { Sequelize, Model, DataTypes, BuildOptions } from "sequelize";
 class Device extends Model {
     public id!: Number;
     public tag!: string;
+    public cliente_id!: string;
 }
 
 Device.init(
@@ -20,6 +21,11 @@ Device.init(
             allowNull: false,
             unique: false
         },
+        cliente_id: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        }
     },
     {
         sequelize,
