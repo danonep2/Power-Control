@@ -134,3 +134,7 @@ src/api/database/db.sqlite
 /src/api/database
 *.sqlite
 /src/temp
+src/api/database/db.sqlite
+*.sqlite
+/src/api/database
+src/api/database/db.sqlite
