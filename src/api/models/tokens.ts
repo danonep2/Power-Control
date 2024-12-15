@@ -3,13 +3,13 @@ import sequelize from "../config/sequelize";
 import { Sequelize, Model, DataTypes, BuildOptions } from "sequelize";
 import User from "./user";
 
-export class ApiTokens extends Model {
+export class tokens extends Model {
     public id!: number;
     public token!: string;
 
 }
 
-ApiTokens.init(
+tokens.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -30,10 +30,10 @@ ApiTokens.init(
     },
 );
 
-ApiTokens.belongsTo(User, {
+tokens.belongsTo(User, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE',
 });
 
 
-export default ApiTokens
+export default tokens
