@@ -15,7 +15,7 @@ const GetDeviceConsumption = async ({ req, res, next }: ControllerInterface) => 
         const { download } = req.query;
 
         // Buscar dados de consumo com a inclusão do dispositivo
-        const consumption = await Consumption.findAll({ where: { device_id: id } });
+        const consumption = await Consumption.findAll({ where: { device_id: id }, attributes: ['id', 'value', 'createdAt'] });
 
         // Criar um arquivo JSON temporário no diretório temporário do sistema
         const tempDir = os.tmpdir();
