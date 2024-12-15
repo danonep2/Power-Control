@@ -6,10 +6,12 @@ export async function handleClient(aedes: Aedes) {
         console.log(`Client ${client.id} connected`);
         const client_id = client.id;
 
-        await Device.findOne({ where: { cliente_id: client_id } }).then((device) => {
+        await Device.findOne({ where: { cliente_id: client_id } }).then(async (device) => {
             if (!device) {
-                Device.create({ tag: client_id, cliente_id: client_id });
+                await Device.create({ tag: client_id, cliente_id: client_id });
+                await Device.update({ online: true }, { where: { cliente_id: client_id } });
             }
+            await Device.update({ online: true }, { where: { cliente_id: client_id } });
         });
     });
 }
