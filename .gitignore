@@ -133,3 +133,4 @@ package-lock.json
 src/api/database/db.sqlite
 /src/api/database
 *.sqlite
+/src/temp
