@@ -3,14 +3,10 @@ import sequelize from "../config/sequelize";
 import { Sequelize, Model, DataTypes, BuildOptions } from "sequelize";
 import User from "./user";
 
-class ApiTokens extends Model {
-    public id!: Number;
+export class ApiTokens extends Model {
+    public id!: number;
     public token!: string;
-}
 
-const genhash = () => {
-    // Generate a random hash sha 512
-    return require('crypto').randomBytes(64).toString('hex');
 }
 
 ApiTokens.init(
@@ -19,20 +15,25 @@ ApiTokens.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
         },
         token: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: false,
-            defaultValue: genhash()
-        }
+            unique: true,
+        },
     },
     {
+        tableName: 'api_tokens',
         sequelize,
-        modelName: "api_tokens",
-    }
+        timestamps: true,
+    },
 );
+
+ApiTokens.belongsTo(User, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE',
+});
 
 
 export default ApiTokens
