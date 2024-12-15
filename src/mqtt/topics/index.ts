@@ -6,7 +6,14 @@ export function handleTopics(aedes: Aedes, client: Client, packet: PublishPacket
     const topic = packet.topic;
 
     const topicParts = topic.split('/');
-    console.log(topicParts)
+    console.log(topicParts);
+
+    //verificar se o cliente é o mesmo que está no tópico
+
+    if (topicParts[1] !== client.id) {
+        console.log(`Client ${client.id} is not authorized to access topic: ${topic}`);
+        return;
+    }
 
     switch (topicParts[0]) {
         case 'consumption':
