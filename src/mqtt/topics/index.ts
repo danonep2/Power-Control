@@ -5,7 +5,10 @@ import { handleLogs } from "./logs";
 export function handleTopics(aedes: Aedes, client: Client, packet: PublishPacket, payload: string) {
     const topic = packet.topic;
 
-    switch (topic) {
+    const topicParts = topic.split('/');
+    console.log(topicParts)
+
+    switch (topicParts[0]) {
         case 'consumption':
             handleConsumption(aedes, client, payload);
             break;
