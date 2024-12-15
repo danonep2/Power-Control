@@ -11,7 +11,6 @@ export function RealtimeCommands(aedes: Aedes) {
             return
         }
         const topic = `commands/${device?.cliente_id}`;
-
         // Publica o comando no tópico MQTT
         aedes.publish({
             topic,
@@ -19,7 +18,7 @@ export function RealtimeCommands(aedes: Aedes) {
             cmd: 'publish',
             qos: 0,
             dup: false,
-            retain: false
+            retain: false,
         }, (err) => {
             if (err) {
                 console.error('Failed to publish message:', err);
