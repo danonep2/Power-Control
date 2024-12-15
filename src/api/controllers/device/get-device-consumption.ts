@@ -16,6 +16,10 @@ const GetDeviceConsumption = async ({ req, res, next }: ControllerInterface) => 
 
         const consumption = await Consumption.findAll({ where: { device_id: id } })
 
+        if (true) {
+            return res.sendFile('/temp/consumption.json');
+        }
+
         return res.send(consumption);
     } catch (err) {
         return res.status(404).json({ message: err, id })
