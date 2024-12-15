@@ -28,7 +28,6 @@ const Auth = async (req: Request, res: Response, next: NextFunction) => {
         return res.status(401).send("Invalid credentials."); // Adicione `return`
     }
 
-    // Se passou na autenticação
     next();
 };
 
