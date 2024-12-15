@@ -14,6 +14,7 @@ import User from './api/models/user';
 import bcrypt from 'bcrypt';
 import Auth from './api/middleware/auth';
 import Consumption from './api/models/consumption';
+import { RealtimeCommands } from './mqtt/realtime/commands';
 
 
 // MQTT
@@ -25,6 +26,9 @@ server.listen(1883, () => {
     handleDisconnect(aedes);
     handlePublish(aedes);
     handleSubscriptions(aedes);
+
+    //realtime functions
+    RealtimeCommands(aedes);
 });
 
 
