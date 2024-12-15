@@ -8,7 +8,6 @@ class User extends Model {
     public auth_hash!: string;
 }
 
-
 User.init(
     {
         id: {
@@ -17,11 +16,16 @@ User.init(
             primaryKey: true,
             autoIncrement: true
         },
-        tag: {
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        },
+        auth_hash: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: false
-        },
+        }
     },
     {
         sequelize,
