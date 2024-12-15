@@ -13,6 +13,7 @@ import User from './api/models/user';
 
 import bcrypt from 'bcrypt';
 import Auth from './api/middleware/auth';
+import Consumption from './api/models/consumption';
 
 
 // MQTT
@@ -56,6 +57,7 @@ app.listen(80, () => {
 
         //verificar se o usuario admin existe
         const admin = await User.findOne({ where: { username: 'admin' } });
+
 
         if (!admin) {
             await User.create({
