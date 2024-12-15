@@ -6,6 +6,7 @@ class Device extends Model {
     public id!: Number;
     public tag!: string;
     public cliente_id!: string;
+    public online!: boolean;
 }
 
 Device.init(
@@ -25,6 +26,12 @@ Device.init(
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
+        },
+        online: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+            unique: false,
+            defaultValue: false
         }
     },
     {
