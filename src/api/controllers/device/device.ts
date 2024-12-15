@@ -1,16 +1,11 @@
-import { Request, Response, NextFunction } from "express"; // Importe Request e Response do Express
 import User from "../../models/user";
 import bcrypt from 'bcrypt';
 import Device from "../../models/device";
 import CheckAuthMiddleware from "../../middleware/auth";
 
-interface DeviceInterface {
-    req: Request;
-    res: Response;
-    next: NextFunction
-}
+import ControllerInterface from "../../interface/controller.interface"
 
-const GetDevice = async ({ req, res, next }: DeviceInterface) => {
+const GetDevice = async ({ req, res, next }: ControllerInterface) => {
     const { id } = req.params;
     try {
         const device = await Device.findOne({ where: { id } });
