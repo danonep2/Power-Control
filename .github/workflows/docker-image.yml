@@ -10,20 +10,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Etapa para fazer checkout do código
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Etapa para fazer login no Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      # Etapa para construir e empurrar a imagem Docker
       - name: Build and push Docker image
         run: |
+          # Cria a imagem Docker com a tag baseada no SHA do commit
           docker build -t iagoamorimp2/power-control:${{ github.sha }} .
+          # Empurra a imagem para o Docker Hub
           docker push iagoamorimp2/power-control:${{ github.sha }}
 
+      # Etapa para deploy no VPS usando SSH
       - name: Deploy to VPS using SSH
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -32,14 +38,17 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22
           script: |
-            # Puxa a imagem mais recente do Docker Hub
+            # Verifica a variável ${GITHUB_SHA}
+            echo "GitHub SHA: ${{ github.sha }}"
+            
+            # Puxa a imagem mais recente do Docker Hub com o SHA do commit
             docker pull iagoamorimp2/power-control:${{ github.sha }}
 
-            # Para e remove o container antigo (se existir)
+            # Para e remove o contêiner antigo, se existir
             docker stop power-control || true
             docker rm power-control || true
 
-            # Executa o novo container com variáveis de ambiente
+            # Executa o novo contêiner com as variáveis de ambiente necessárias
             docker run -d -p 1883:1883 -p 80:80 -p 5432:5432 --name power-control \
               -e PG_USER=${{ secrets.PG_USER }} \
               -e PG_PASSWORD=${{ secrets.PG_PASSWORD }} \
