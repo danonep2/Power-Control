@@ -23,7 +23,7 @@ router.get('/devices', (req: Request, res: Response, next: NextFunction) => {
 router.get('/device/:id', (req: Request, res: Response, next: NextFunction) => {
     GetDevice({ req, res, next });
 });
-router.get('/device/consumption/:id', (req: Request, res: Response, next: NextFunction) => {
+router.get('/device/:id/consumption', (req: Request, res: Response, next: NextFunction) => {
     GetDeviceConsumption({ req, res, next });
 });
 

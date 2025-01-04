@@ -1,0 +1,50 @@
+name: Deploy Docker to VPS
+
+on:
+  push:
+    branches:
+      - main  # Ou a branch que você usa para deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t iagoamorimp2/power-control:${{ github.sha }} .
+          docker push iagoamorimp2/power-control:${{ github.sha }}
+
+      - name: Deploy to VPS using SSH
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22
+          script: |
+            # Puxa a imagem mais recente do Docker Hub
+            docker pull iagoamorimp2/power-control:${{ github.sha }}
+
+            # Para e remove o container antigo (se existir)
+            docker stop power-control|| true
+            docker rm power-control || true
+
+            # Executa o novo container com variáveis de ambiente
+            docker run -d -p 1883:1883 -p 80:80 -p 5432:5432 -p 8085:8085 --name power-control \
+              -e PG_USER=${{ secrets.PG_USER }} \
+              -e PG_PASSWORD=${{ secrets.PG_PASSWORD }} \
+              -e PGADMIN_DEFAULT_EMAIL=${{ secrets.PGADMIN_DEFAULT_EMAIL }} \
+              -e PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD }} \
+              -e ADMIN_USER=${{ secrets.ADMIN_USER }} \
+              -e ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
+              iagoamorimp2/power-control:${{ github.sha }}
