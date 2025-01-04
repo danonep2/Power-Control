@@ -49,7 +49,7 @@ app.use((req, res, next) => {
 app.use("/api/v1", router);
 
 app.listen(80, () => {
-    console.log(`API Server 🚀 listening on port http: ${80}`);
+    console.log(`API Server 🚀 listening on port api: ${80}`);
 });
 
 (async () => {
