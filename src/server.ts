@@ -21,7 +21,7 @@ import { RealtimeCommands } from './mqtt/realtime/commands';
 const aedes = new Aedes();
 const server = createServer(aedes.handle);
 server.listen(1883, () => {
-    console.log(`MQTT Server 🚀 listening on port tcp: ${1883}`);
+    console.log(`MQTT Server 🚀 listening on port api: ${1883}`);
     handleClient(aedes);
     handleDisconnect(aedes);
     handlePublish(aedes);
