@@ -35,19 +35,16 @@ jobs:
             # Puxa a imagem mais recente do Docker Hub
             docker pull iagoamorimp2/power-control:${{ github.sha }}
 
-            # Verifica se o container existe e remove (se existir)
-            if [ "$(docker container inspect -f '{{ .Id }}' power-control 2> /dev/null)" ]; then
-              docker stop power-control || true
-              docker rm power-control || true
-            fi
+            # Para e remove o container antigo (se existir)
+            docker stop power-control || true
+            docker rm power-control || true
 
             # Executa o novo container com variáveis de ambiente
-            docker run -d -p 1883:1883 -p 80:80 -p 5432:5432 -p 8085:8085 --name power-control \
+            docker run -d -p 1883:1883 -p 80:80 -p 5432:5432 --name power-control\
               -e PG_USER=${{ secrets.PG_USER }} \
               -e PG_PASSWORD=${{ secrets.PG_PASSWORD }} \
               -e PGADMIN_DEFAULT_EMAIL=${{ secrets.PGADMIN_DEFAULT_EMAIL }} \
               -e PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD }} \
               -e ADMIN_USER=${{ secrets.ADMIN_USER }} \
               -e ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
-              -e SSH_KEY=${{ secrets.VPS_SSH_KEY }} \
-              docker.io/iagoamorimp2/power-control:${{ github.sha }}
+              iagoamorimp2/power-control:${{ github.sha }}
