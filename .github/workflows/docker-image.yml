@@ -41,11 +41,11 @@ jobs:
 
             # Executa o novo container com variáveis de ambiente
             docker run -d -p 1883:1883 -p 80:80 -p 5432:5432 --name power-control \
-  -e PG_USER=${{ secrets.PG_USER }} \
-  -e PG_PASSWORD=${{ secrets.PG_PASSWORD }} \
-  -e PGADMIN_DEFAULT_EMAIL=${{ secrets.PGADMIN_DEFAULT_EMAIL }} \
-  -e PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD }} \
-  -e ADMIN_USER=${{ secrets.ADMIN_USER }} \
-  -e ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
-  iagoamorimp2/power-control:${{ github.sha }}
+            -e PG_USER=${{ secrets.PG_USER }} \
+            -e PG_PASSWORD=${{ secrets.PG_PASSWORD }} \
+            -e PGADMIN_DEFAULT_EMAIL=${{ secrets.PGADMIN_DEFAULT_EMAIL }} \
+            -e PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD }} \
+            -e ADMIN_USER=${{ secrets.ADMIN_USER }} \
+            -e ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
+            iagoamorimp2/power-control:${{ github.sha }}
 
