@@ -1,7 +1,6 @@
 import path from "path";
 import { Sequelize } from "sequelize";
-
-
+import 'dotenv/config'
 
 const dbName: string = process.env.PG_DATABASE || '';
 const dbUser: string = process.env.PG_USER || '';
