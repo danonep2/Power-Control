@@ -10,8 +10,8 @@ services:
       - "1883:1883"
       - "80:80"
     environment:
-      PG_USER: ${PG_USER}
-      PG_PASSWORD: ${PG_PASSWORD}
+      PG_USER: teste
+      PG_PASSWORD: teste1234
       PG_DATABASE: postgres
       PG_HOST: postgres
     depends_on:
@@ -25,8 +25,8 @@ services:
     container_name: postgres-db
     restart: always
     environment:
-      POSTGRES_USER: ${PG_USER}
-      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_USER: teste
+      POSTGRES_PASSWORD: teste1234
       POSTGRES_DB: postgres
       POSTGRES_PORT: 5432
       POSTGRES_HOST_AUTH_METHOD: trust
