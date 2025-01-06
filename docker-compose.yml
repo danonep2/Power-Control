@@ -17,6 +17,9 @@ services:
     depends_on:
       - postgres
     restart: always
+    networks:
+      - iagonetwork
+
   postgres:
     image: postgres:14.1-alpine
     container_name: postgres-db
@@ -33,6 +36,8 @@ services:
       - pg_data:/var/lib/postgresql/data
       - ./postgresql.conf:/etc/postgresql/postgresql.conf
       - ./pg_hba.conf:/etc/postgresql/pg_hba.conf
+    networks:
+      - iagonetwork
 
   pgadmin:
     image: dpage/pgadmin4:7.6
@@ -45,6 +50,12 @@ services:
       - "8085:80"
     depends_on:
       - postgres
+    networks:
+      - iagonetwork
 
 volumes:
   pg_data:
+
+networks:
+  iagonetwork:
+    driver: bridge
