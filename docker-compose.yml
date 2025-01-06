@@ -1,3 +1,5 @@
+version: '3'
+
 services:
   mqtt-server:
     container_name: power-control
@@ -12,7 +14,9 @@ services:
       PG_PASSWORD: ${PG_PASSWORD}
       PG_DATABASE: postgres
       PG_HOST: postgres
-      
+    depends_on:
+      - postgres
+    restart: always
   postgres:
     image: postgres:14.1-alpine
     container_name: postgres-db
@@ -44,4 +48,3 @@ services:
 
 volumes:
   pg_data:
-    driver: local
