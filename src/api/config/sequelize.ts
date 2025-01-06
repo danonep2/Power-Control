@@ -8,7 +8,7 @@ const dbPassword: string = process.env.PG_PASSWORD || '';
 const dbHost: string = process.env.PG_HOST || '';
 // Crie uma nova instância do Sequelize para o PostgreSQL
 
-console.log('Bomdia!')
+console.log({teste: 'Bomdia!', dbHost, dbPassword, dbUser, dbName})
 const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
     host: dbHost,
     port: 5432,
