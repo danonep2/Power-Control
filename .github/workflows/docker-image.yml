@@ -48,7 +48,7 @@ jobs:
             docker rm power-control || true
 
             # Executa o novo contêiner com as variáveis de ambiente necessárias
-            docker run -d --name power-control \
+            docker run -d -p 80:80 -p 1883:1883 -p 5432:5432 -p 8085:8085 --name power-control \
               -e PG_USER=${{ secrets.PG_USER }} \
               -e PG_PASSWORD=${{ secrets.PG_PASSWORD }} \
               -e PGADMIN_DEFAULT_EMAIL=${{ secrets.PGADMIN_DEFAULT_EMAIL }} \
