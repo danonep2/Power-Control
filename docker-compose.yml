@@ -12,8 +12,8 @@ services:
     environment:
       PG_USER: ${PG_USER}
       PG_PASSWORD: ${PG_PASSWORD}
-      PG_DATABASE: "postgres"
-      PG_HOST: "localhost"
+      PG_DATABASE: postgres
+      PG_HOST: postgres
     depends_on:
       - postgres
     restart: always
